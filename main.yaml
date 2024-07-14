@@ -1,0 +1,73 @@
+binary_sensor:
+  - platform: gpio
+    pin: GPIO5
+    name: "Top Contact"
+    device_class: door
+    filters:
+      - delayed_on: 10ms
+      - delayed_off: 10ms
+  - platform: gpio
+    pin: GPIO18
+    name: "Bottom Contact"
+    device_class: door
+    filters:
+      - delayed_on: 10ms
+      - delayed_off: 10ms
+  - platform: gpio
+    pin: GPIO25
+    name: "Rotary Encoder Button"
+  - platform: gpio
+    pin: GPIO14
+    name: "Up Button"
+    internal: true
+    filters:
+      - delayed_on: 10ms
+      - delayed_off: 10ms
+  - platform: gpio
+    pin: GPIO13
+    name: "Down Button"
+    internal: true
+    filters:
+      - delayed_on: 10ms
+      - delayed_off: 10ms
+  - platform: gpio
+    pin: GPIO19
+    name: "Luminosity Sensor"
+    device_class: light
+
+output:
+  - platform: gpio
+    pin: GPIO26
+    id: motor_in1
+  - platform: gpio
+    pin: GPIO27
+    id: motor_in2
+  - platform: gpio
+    pin: GPIO22
+    id: motor_enable
+
+cover:
+  - platform: template
+    name: "Roller Shades"
+    open_action:
+      - output.turn_on: motor_enable
+      - output.turn_on: motor_in1
+      - output.turn_off: motor_in2
+    close_action:
+      - output.turn_on: motor_enable
+      - output.turn_off: motor_in1
+      - output.turn_on: motor_in2
+    stop_action:
+      - output.turn_off: motor_enable
+      - output.turn_off: motor_in1
+      - output.turn_off: motor_in2
+
+sensor:
+  - platform: rotary_encoder
+    name: "Rotary Encoder"
+    pin_a: GPIO32  # CLK
+    pin_b: GPIO33  # DT
+    resolution: 1
+    on_value:
+      then:
+        - logger.log: "Rotary Encoder moved"

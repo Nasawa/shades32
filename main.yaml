@@ -6,6 +6,12 @@ binary_sensor:
     filters:
       - delayed_on: 10ms
       - delayed_off: 10ms
+    on_press:
+      then:
+        - logger.log: "Top Contact pressed"
+    on_release:
+      then:
+        - logger.log: "Top Contact released"
   - platform: gpio
     pin: GPIO18
     name: "Bottom Contact"
@@ -13,9 +19,21 @@ binary_sensor:
     filters:
       - delayed_on: 10ms
       - delayed_off: 10ms
+    on_press:
+      then:
+        - logger.log: "Bottom Contact pressed"
+    on_release:
+      then:
+        - logger.log: "Bottom Contact released"
   - platform: gpio
     pin: GPIO25
     name: "Rotary Encoder Button"
+    on_press:
+      then:
+        - logger.log: "Rotary Encoder Button pressed"
+    on_release:
+      then:
+        - logger.log: "Rotary Encoder Button released"
   - platform: gpio
     pin: GPIO14
     name: "Up Button"
@@ -23,6 +41,12 @@ binary_sensor:
     filters:
       - delayed_on: 10ms
       - delayed_off: 10ms
+    on_press:
+      then:
+        - logger.log: "Up Button pressed"
+    on_release:
+      then:
+        - logger.log: "Up Button released"
   - platform: gpio
     pin: GPIO13
     name: "Down Button"
@@ -30,6 +54,12 @@ binary_sensor:
     filters:
       - delayed_on: 10ms
       - delayed_off: 10ms
+    on_press:
+      then:
+        - logger.log: "Down Button pressed"
+    on_release:
+      then:
+        - logger.log: "Down Button released"
   - platform: gpio
     pin: GPIO19
     name: "Luminosity Sensor"
